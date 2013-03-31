@@ -1,0 +1,115 @@
+<html>
+	<head>
+		<title>asd</title>
+		<script src="jquery.min.js"></script>
+		<script src="sender.js"></script>
+	</head>
+
+	<body>
+		<form action="" method="GET" id="auth">
+
+			Логин: <input type="text" name="login"/><div id="login_error" style="display: none;">ОШИБКА</div>
+			<br><br>
+			Пароль: <input type="password" name="pass"/><div id="pass_error" style="display: none;">ОШИБКА</div>
+			<br><br>
+			Подтвердить Пароль: <input type="password" name="pass_comf"/><div id="pass_comf" style="display: none;">ОШИБКА</div>
+			<br><br>
+			Фамилия: <input type="text" name="lastname[fafa]"/>
+			<div id="email_error" style="display: none;">ОШИБКА</div>
+			<br><br>
+			СОГЛАСЕН??? <input type="checkbox" name="ready" />
+			<br><br>
+			<input type="submit" />
+
+		</form>
+
+
+		<script>
+			$('#auth').senderForms({
+				
+				// правила валидации
+				
+				rules: {
+					login: {
+						required: true,
+						minlength: {
+							param: 3,
+							message: 'Ошибочка блеать!'
+						},
+						maxlength: 10
+					},
+					pass: {
+						required: true	
+					},
+					"lastname\\[fafa\\]" : {
+						email: true
+					},
+					ready: {
+						checkbox: true
+					},
+					pass_comf: {
+						required: true,
+						equalTo: 'input[name=pass]'
+					}
+				},
+				
+				errorFields: {
+					login: $('#login_error'),
+					pass: $('#pass_error'),
+					"lastname\\[fafa\\]": $('#email_error'),
+					pass_comf: $('#pass_comf')
+				},
+
+				invalidHandlers: {
+					ready: {
+						checkbox: function() {
+						alert(111)
+					}
+					}
+				},
+/*				
+				ajax: {
+					url: 'index.html?a=6',
+					type: 'POST',
+					data: ['lastname', 'pass']
+				},
+
+				// вызывается при ошибки валидации для определенного поля
+				invalidHandlers: {
+					pass: {
+						required: function(errorField, errorText) {
+							console.log('required PASS');
+						}
+					},
+					login: {
+						minlength: function(errorField, errorText) {
+							console.log(55555);
+						},
+						required: function(errorField, errorText) {
+							console.log([errorField, errorText]);
+						}
+					}
+				},
+*/
+/*
+				// вызываем, если у поля нет собственного обработчика ошибки
+				everyMiss: function(nodeError, nodeText, nodeName) {
+					//console.log([nodeError, nodeText, nodeName]);
+				},
+
+				// обработчик при отправке
+				submitHandler: function() {
+					//console.log(123);
+				},
+
+				// перед все валидацией
+				beforeValid: function() {
+					//console.log('before send')
+				}
+*/
+
+
+			});
+		</script>
+	</body>
+</html>

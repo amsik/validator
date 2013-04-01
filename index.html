@@ -6,7 +6,7 @@
 	</head>
 
 	<body>
-		<form action="" method="GET" id="auth">
+		<form action="" method="GET" id="auth" style="float: left;">
 
 			Логин: <input type="text" name="login"/><div id="login_error" style="display: none;">ОШИБКА</div>
 			<br><br>
@@ -23,8 +23,48 @@
 
 		</form>
 
+		<form action="" method="GET" id="auth2" style="float: left; margin-left:50px">
+
+			Логин: <input type="text" name="login"/><div id="login_error2" style="display: none;">ОШИБКА</div>
+			<br><br>
+			Пароль: <input type="password" name="pass"/><div id="pass_error2" style="display: none;">ОШИБКА</div>
+			<br><br>
+			Подтвердить Пароль: <input type="password" name="pass_comf"/><div id="pass_comf2" style="display: none;">ОШИБКА</div>
+			<br><br>
+			Фамилия: <input type="text" name="lastname[fafa]"/>
+			<div id="email_error2" style="display: none;">ОШИБКА</div>
+			<br><br>
+			СОГЛАСЕН??? <input type="checkbox" name="ready" />
+			<br><br>
+			<input type="submit" />
+
+		</form>
+
 
 		<script>
+
+			$('#auth2').senderForms({
+				
+				// правила валидации
+				
+				rules: {
+					pass_comf: {
+						required: true,
+						equalTo: 'input[name=pass]'
+					}
+				},
+				
+				errorFields: {
+					login: $('#login_error2'),
+					pass: $('#pass_error2'),
+					"lastname\\[fafa\\]": $('#email_error2'),
+					pass_comf: $('#pass_comf2')
+				},
+
+
+
+			});
+
 			$('#auth').senderForms({
 				
 				// правила валидации

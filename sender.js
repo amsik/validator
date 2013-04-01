@@ -3,8 +3,6 @@
 
 	var Submiter = {};
 
-	var parent;
-
 	// @FIX: в имени иппута - []
 	$.fn.senderForms = function(options) {
 			
@@ -12,7 +10,7 @@
 	    	v = new Submiter.validator(options)
 	    	, ruler, rule, collector, ruleParam;
 
-	    v.form = parent = $(this);
+	    v.form = $(this);
 
 	    options.rules = options.rules || v.getFieldNames();
 
@@ -31,6 +29,11 @@
 					if (ruleParam.param) {
 						collector.ruler(new Submiter.RulesHandler(ruleName, ruleParam.param, ruleParam.message));	
 					} else {
+						
+						if ('equalTo' == ruleName) {
+							ruleParam = v.form.find(ruleParam);
+						}
+						
 						collector.ruler(new Submiter.RulesHandler(ruleName, ruleParam));
 					}
 
@@ -356,7 +359,7 @@
 		},
 		// @todo: сделать настраиваемый
 		equalTo: function(value, element) {
-			return value === parent.find(element).val();
+			return value === $(element).val();
 		},
 		checkbox: function(value, element) {
 			return this.is(':checked') === element;

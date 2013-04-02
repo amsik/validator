@@ -118,6 +118,12 @@
 				
 					e.preventDefault();	
 				}
+
+
+				// run func after a validation
+				if (that.settings.afterValid) {
+					that.settings.afterValid( !!(that.errors > 0) );
+				}
 				
 			});
 		},
@@ -372,7 +378,7 @@
 				return false;
 			}
 
-			var result, data = {};
+			var result = false, data = {};
 
 			element.data = element.data || {};
 
@@ -387,10 +393,18 @@
 			$.ajax({
 				url: element.url,
 				type: 'POST',
+				dataType: "json",
 				async: false,
 				data: data,
 				success: function(resp) {
-					result = (!!resp);
+					
+					if (resp) {
+						result = resp.status.toUpperCase() == 'OK' ? true : false;	
+					}
+					
+					if (element.success) {
+						element.success.apply(this, [resp]);
+					}
 				}
 			});
 

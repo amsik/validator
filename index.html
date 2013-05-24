@@ -19,6 +19,10 @@
 			<br><br>
 			СОГЛАСЕН??? <input type="checkbox" name="ready" />
 			<br><br>
+			БАБАБА
+			<textarea name="tt"></textarea>
+			<div id="tt_error"></div>
+
 			<input type="submit" />
 
 		</form>
@@ -42,7 +46,7 @@
 
 
 		<script>
-
+/*
 			$('#auth2').senderForms({
 				
 				// правила валидации
@@ -64,12 +68,12 @@
 
 
 			});
-
+*/
 			$('#auth').senderForms({
 				
 				// правила валидации
 				
-				rules: {
+				rules: {/*
 					login: {
 						required: true,
 						minlength: {
@@ -90,22 +94,28 @@
 					pass_comf: {
 						required: true,
 						equalTo: 'input[name=pass]'
+					},*/
+					tt: {
+						required: true
 					}
 				},
 				
 				errorFields: {
+					tt: $('#tt_error')
+
+					/*
 					login: $('#login_error'),
 					pass: $('#pass_error'),
 					"lastname\\[fafa\\]": $('#email_error'),
-					pass_comf: $('#pass_comf')
+					pass_comf: $('#pass_comf')*/
 				},
 
-				invalidHandlers: {
+				invalidHandlers: {/*
 					ready: {
 						checkbox: function() {
 						alert(111)
 					}
-					}
+					}*/
 				},
 /*				
 				ajax: {
